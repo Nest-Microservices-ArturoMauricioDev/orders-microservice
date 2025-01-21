@@ -2,6 +2,7 @@ import {
   Controller,
   NotImplementedException,
   ParseIntPipe,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { OrdersService } from './orders.service';
@@ -22,8 +23,8 @@ export class OrdersController {
   }
 
   @MessagePattern('findOneOrder')
-  findOne(@Payload('id', ParseIntPipe) id: number) {
-    return this.ordersService.findOne(+id);
+  findOne(@Payload('id', ParseUUIDPipe) id: string) {
+    return this.ordersService.findOne(id);
   }
 
   @MessagePattern('changeOrderStatus')
